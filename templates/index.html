@@ -11,16 +11,19 @@
     <h1>Sudoku</h1>
     <p>Fill every row, column and 3×3 box with digits 1–9.</p>
 
-    <!-- The whole board is a form, so Python can receive it later -->
     <form method="post">
+      <!-- NEW: remembers which puzzle is on screen -->
+      <input type="hidden" name="puzzle_id" value="{{ puzzle_id }}">
+
       <div id="board" aria-label="Sudoku board">
         {% for r in range(9) %}
           {% for c in range(9) %}
+            {% set err = ' error' if (r, c) in errors else '' %}
             {% if given[r][c] != 0 %}
-              <input class="cell given" name="c{{ r }}{{ c }}"
+              <input class="cell given{{ err }}" name="c{{ r }}{{ c }}"
                      value="{{ given[r][c] }}" readonly>
             {% else %}
-              <input class="cell" name="c{{ r }}{{ c }}"
+              <input class="cell{{ err }}" name="c{{ r }}{{ c }}"
                      value="{{ board[r][c] if board[r][c] != 0 else '' }}"
                      maxlength="1" pattern="[1-9]" inputmode="numeric"
                      autocomplete="off">
@@ -29,10 +32,15 @@
         {% endfor %}
       </div>
 
-      <!-- Buttons get added in Step 2 -->
+      <div class="controls">
+        <button type="submit" name="action" value="check">Check</button>
+        <!-- NEW buttons; formnovalidate lets them work even if a cell has bad input -->
+        <button type="submit" name="action" value="reset" formnovalidate>Reset</button>
+        <button type="submit" name="action" value="new" formnovalidate>New Puzzle</button>
+      </div>
     </form>
 
-    <div id="message" role="status">{{ message }}</div>
+    <div id="message" class="{{ msg_type }}" role="status">{{ message }}</div>
   </main>
 </body>
 </html>
