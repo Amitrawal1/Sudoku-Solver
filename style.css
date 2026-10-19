@@ -1,0 +1,139 @@
+* {
+    box-sizing: border-box;
+    }
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #f1f5f9;
+    font-family: Arial, sans-serif;
+    color: #1e293b;
+}
+
+.container {
+    width: min(95vw, 480px);
+    padding: 20px;
+    text-align: center;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 8px 30px #00000012;
+}
+
+h1 {
+    margin: 0 0 8px;
+    color: #2563eb;
+}
+
+p {
+    color: #64748b;
+    margin-bottom: 20px;}
+
+#board {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    width: 100%;
+    aspect-ratio: 1;
+    border: 3px solid #1e293b;
+}
+
+.cell {
+    min-width: 0;
+    aspect-ratio: 1;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    border-right: 1px solid #cbd5e1;
+    border-bottom: 1px solid #cbd5e1;
+    background: white;
+    font-size: clamp(14px, 4.5vw, 24px);
+    text-align: center;
+    color: #2563eb;
+    outline: none;
+}
+
+/* Bold borders for 3x3 boxes */
+.cell:nth-child(3n) {
+    border-right: 2px solid #1e293b;
+}
+
+.cell:nth-child(9n) {
+    border-right: 0;
+}
+
+.cell:nth-child(n+19):nth-child(-n+27),
+.cell:nth-child(n+46):nth-child(-n+54) {
+    border-bottom: 2px solid #1e293b;
+}
+
+.cell:nth-child(n+73) {
+    border-bottom: 0;
+}
+
+.cell:focus {
+    background: #dbeafe;
+}
+
+.cell.selected {
+    background: #bfdbfe;
+}
+
+.cell.given {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: bold;
+}
+
+.cell.error {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+.numbers {
+    display: grid;
+    grid-template-columns: repeat(9, 1fr);
+    gap: 5px;
+    margin: 16px 0;}
+
+.numbers button {
+    padding: 10px 0;
+    border: none;
+    border-radius: 6px;
+    background: #dbeafe;
+    color: #1d4ed8;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.numbers button:hover {
+    background: #93c5fd;
+}
+
+.controls {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.controls button {
+    flex: 1;
+    padding: 11px 8px;
+    border: none;
+    border-radius: 8px;
+    background: #2563eb;
+    color: white;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.controls button:hover {
+    background: #1d4ed8;
+}
+
+#message {
+    min-height: 22px;
+    margin-top: 14px;
+    font-size: 14px;
+}
